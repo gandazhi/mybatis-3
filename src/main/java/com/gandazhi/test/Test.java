@@ -28,7 +28,7 @@ public class Test {
     MsgTypeMapper mapper = sqlSession.getMapper(MsgTypeMapper.class);
     List<MsgType> selectAll = mapper.selectAll();
 
-    // 通过mapper上的namespace来实现 需要通过字符串
+    // 通过mapper上的namespace来实现 需要依赖传递字符串，相比没通过接口包名相同的namespace映射安全
 //    List<MsgType> selectAll = sqlSession.selectList("MsgTypeMapper.selectAll");
     System.out.println(selectAll);
   }
