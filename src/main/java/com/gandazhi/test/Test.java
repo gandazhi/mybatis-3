@@ -1,5 +1,6 @@
 package com.gandazhi.test;
 
+import com.gandazhi.test.mapper.MsgTypeMapper;
 import com.gandazhi.test.pojo.MsgType;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -22,7 +23,13 @@ public class Test {
     SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 
     SqlSession sqlSession = sqlSessionFactory.openSession();
-    List<MsgType> selectAll = sqlSession.selectList("MsgTypeMapper.selectAll");
+
+    // 通过接口映射来实现
+    MsgTypeMapper mapper = sqlSession.getMapper(MsgTypeMapper.class);
+    List<MsgType> selectAll = mapper.selectAll();
+
+    // 通过mapper上的namespace来实现 需要通过字符串
+//    List<MsgType> selectAll = sqlSession.selectList("MsgTypeMapper.selectAll");
     System.out.println(selectAll);
   }
 }
