@@ -74,7 +74,7 @@ public class SqlSessionFactoryBuilder {
 
   public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {
     try {
-      XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties);
+      XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties); // parser.parse() 从配置文件config.xml中读取信息转化为Configuration对象
       return build(parser.parse());
     } catch (Exception e) {
       throw ExceptionFactory.wrapException("Error building SqlSession.", e);

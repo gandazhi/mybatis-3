@@ -107,13 +107,14 @@ public class XMLMapperBuilder extends BaseBuilder {
 
   private void configurationElement(XNode context) {
     try {
+      // 判断mapper文件中的namespace非空
       String namespace = context.getStringAttribute("namespace");
       if (namespace == null || namespace.equals("")) {
         throw new BuilderException("Mapper's namespace cannot be empty");
       }
-      builderAssistant.setCurrentNamespace(namespace);
-      cacheRefElement(context.evalNode("cache-ref"));
-      cacheElement(context.evalNode("cache"));
+      builderAssistant.setCurrentNamespace(namespace); //设置当前解析的mapper命名空间
+      cacheRefElement(context.evalNode("cache-ref")); //设置二级缓存引用
+      cacheElement(context.evalNode("cache")); // 设置二级缓存
       parameterMapElement(context.evalNodes("/mapper/parameterMap"));
       resultMapElements(context.evalNodes("/mapper/resultMap"));
       sqlElement(context.evalNodes("/mapper/sql"));
