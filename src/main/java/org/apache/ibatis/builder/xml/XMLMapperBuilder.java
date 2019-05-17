@@ -115,10 +115,10 @@ public class XMLMapperBuilder extends BaseBuilder {
       builderAssistant.setCurrentNamespace(namespace); //设置当前解析的mapper命名空间
       cacheRefElement(context.evalNode("cache-ref")); //设置二级缓存引用
       cacheElement(context.evalNode("cache")); // 设置二级缓存
-      parameterMapElement(context.evalNodes("/mapper/parameterMap"));
-      resultMapElements(context.evalNodes("/mapper/resultMap"));
-      sqlElement(context.evalNodes("/mapper/sql"));
-      buildStatementFromContext(context.evalNodes("select|insert|update|delete"));
+      parameterMapElement(context.evalNodes("/mapper/parameterMap")); // 解析parameterMap
+      resultMapElements(context.evalNodes("/mapper/resultMap")); // 解析resultMap
+      sqlElement(context.evalNodes("/mapper/sql")); // 解析sql
+      buildStatementFromContext(context.evalNodes("select|insert|update|delete")); // 解析SQL语句
     } catch (Exception e) {
       throw new BuilderException("Error parsing Mapper XML. The XML location is '" + resource + "'. Cause: " + e, e);
     }
@@ -192,7 +192,7 @@ public class XMLMapperBuilder extends BaseBuilder {
       configuration.addCacheRef(builderAssistant.getCurrentNamespace(), context.getStringAttribute("namespace"));
       CacheRefResolver cacheRefResolver = new CacheRefResolver(builderAssistant, context.getStringAttribute("namespace"));
       try {
-        cacheRefResolver.resolveCacheRef();
+        cacheRefResolver.resolveCacheRef(); // 引用缓存  builderAssistant对象中cache设置值
       } catch (IncompleteElementException e) {
         configuration.addIncompleteCacheRef(cacheRefResolver);
       }
@@ -203,14 +203,14 @@ public class XMLMapperBuilder extends BaseBuilder {
     if (context != null) {
       String type = context.getStringAttribute("type", "PERPETUAL");
       Class<? extends Cache> typeClass = typeAliasRegistry.resolveAlias(type);
-      String eviction = context.getStringAttribute("eviction", "LRU");
+      String eviction = context.getStringAttribute("eviction", "LRU"); // 清除策略，默认是LRU
       Class<? extends Cache> evictionClass = typeAliasRegistry.resolveAlias(eviction);
-      Long flushInterval = context.getLongAttribute("flushInterval");
-      Integer size = context.getIntAttribute("size");
-      boolean readWrite = !context.getBooleanAttribute("readOnly", false);
+      Long flushInterval = context.getLongAttribute("flushInterval"); //刷新间隔
+      Integer size = context.getIntAttribute("size");// 最多可以存储的对象或引用数
+      boolean readWrite = !context.getBooleanAttribute("readOnly", false); // 设置是否只读
       boolean blocking = context.getBooleanAttribute("blocking", false);
       Properties props = context.getChildrenAsProperties();
-      builderAssistant.useNewCache(typeClass, evictionClass, flushInterval, size, readWrite, blocking, props);
+      builderAssistant.useNewCache(typeClass, evictionClass, flushInterval, size, readWrite, blocking, props); // 往configuration对象中设置cache
     }
   }
 

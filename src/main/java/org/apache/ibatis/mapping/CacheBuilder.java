@@ -91,15 +91,16 @@ public class CacheBuilder {
 
   public Cache build() {
     setDefaultImplementations();
-    Cache cache = newBaseCacheInstance(implementation, id);
+    Cache cache = newBaseCacheInstance(implementation, id); // 通过mapper中的typeClass来新建cache对象
     setCacheProperties(cache);
     // issue #352, do not apply decorators to custom caches
     if (PerpetualCache.class.equals(cache.getClass())) {
+      // 判断是否为默认的PerpetualCache.class
       for (Class<? extends Cache> decorator : decorators) {
-        cache = newCacheDecoratorInstance(decorator, cache);
-        setCacheProperties(cache);
+        cache = newCacheDecoratorInstance(decorator, cache); // 根据设置的eviction缓存清楚类型转化cache
+        setCacheProperties(cache); // 给cache对象设置property
       }
-      cache = setStandardDecorators(cache);
+      cache = setStandardDecorators(cache); // 给cache对象设置size等信息
     } else if (!LoggingCache.class.isAssignableFrom(cache.getClass())) {
       cache = new LoggingCache(cache);
     }
@@ -107,6 +108,7 @@ public class CacheBuilder {
   }
 
   private void setDefaultImplementations() {
+    // 设置缓存类型和清除策略
     if (implementation == null) {
       implementation = PerpetualCache.class;
       if (decorators.isEmpty()) {
@@ -140,6 +142,7 @@ public class CacheBuilder {
   }
 
   private void setCacheProperties(Cache cache) {
+    // 给cache对象设置property
     if (properties != null) {
       MetaObject metaCache = SystemMetaObject.forObject(cache);
       for (Map.Entry<Object, Object> entry : properties.entrySet()) {

@@ -2,9 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gandazhi.test.mapper.MsgTypeMapper">
 
-  <cache-ref namespace=""/>
-  <cache />
-  <parameterMap id="test" type="com.gandazhi.test.pojo.MsgType"></parameterMap>
+<!--  <cache-ref namespace=""/>-->
+  <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true" />
   <sql id="testSql">
 
   </sql>
