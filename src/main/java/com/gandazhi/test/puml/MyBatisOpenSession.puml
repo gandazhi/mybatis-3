@@ -1,0 +1,11 @@
+@startuml
+DefaultSqlSessionFactory -> Configuration: openSession()
+DefaultSqlSessionFactory -> Configuration: openSessionFromDataSource()
+Configuration -> Configuration: 获取环境信息，创建事物tx
+Configuration -> Executor: newExecutor(tx, execType)
+Executor -> Executor: 根据Executor在全局配置中的类型， \n创建出BatchExecutor/ReuseExecutor/ \nSimpleExecutor
+Executor -> Executor: 判断是否有设置二级缓存 \n 如果有，new CachingExecutor(executor)
+Executor -> Executor: executor = (Executor) interceptorChain.pluginAll(executor); \n 使用每一个拦截器重新包装executor并返回
+Executor -> DefaultSqlSession: 创建DefaultSqlSession \n new DefaultSqlSession(configuration, executor, autoCommit)
+DefaultSqlSessionFactory <-- DefaultSqlSession: 返回DefaultSqlSession
+@enduml

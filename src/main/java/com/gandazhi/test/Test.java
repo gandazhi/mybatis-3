@@ -22,7 +22,7 @@ public class Test {
     InputStream inputStream = Resources.getResourceAsStream(resource);
     SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 
-    SqlSession sqlSession = sqlSessionFactory.openSession();
+    SqlSession sqlSession = sqlSessionFactory.openSession(); // 里面包含了Executor
 
     // 通过接口映射来实现
     MsgTypeMapper mapper = sqlSession.getMapper(MsgTypeMapper.class);

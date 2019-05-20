@@ -594,9 +594,10 @@ public class Configuration {
       executor = new SimpleExecutor(this, transaction);
     }
     if (cacheEnabled) {
+      // 判断是否设置有二级缓存，有设置使用包装后的executor
       executor = new CachingExecutor(executor);
     }
-    executor = (Executor) interceptorChain.pluginAll(executor);
+    executor = (Executor) interceptorChain.pluginAll(executor); // 调用拦截器，拿每一个拦截器重新包装executor并返回
     return executor;
   }
 
