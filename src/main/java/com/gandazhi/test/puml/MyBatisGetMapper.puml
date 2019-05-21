@@ -1,0 +1,9 @@
+@startuml
+DefaultSqlSession -> configuration: getMapper(type, sqlSession)
+configuration -> mapperRegistry: getMapper(type, sqlSession)
+mapperRegistry -> mapperProxyFactory: 根据传来的type(接口class) \n获取mapperProxyFactory
+mapperProxyFactory -> mapperProxyFactory: newInstance(sqlSession)
+mapperProxyFactory -> mapperProxy: 创建mapperProxy，该对象是一个InvocationHandler
+mapperProxyFactory -> mapperProxy: 创建mapperProxy的代理对象
+DefaultSqlSession <-- mapperProxy: 返回mapperProxy的代理对象
+@enduml
