@@ -60,7 +60,7 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
   }
 
   private MapperMethod cachedMapperMethod(Method method) {
-    return methodCache.computeIfAbsent(method, k -> new MapperMethod(mapperInterface, method, sqlSession.getConfiguration()));
+    return methodCache.computeIfAbsent(method, k -> new MapperMethod(mapperInterface, method, sqlSession.getConfiguration())); // 从本地缓存中获取MapperMethod对象
   }
 
   private Object invokeDefaultMethod(Object proxy, Method method, Object[] args)

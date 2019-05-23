@@ -139,7 +139,7 @@ public class MapperMethod {
 
   private <E> Object executeForMany(SqlSession sqlSession, Object[] args) {
     List<E> result;
-    Object param = method.convertArgsToSqlCommandParam(args);
+    Object param = method.convertArgsToSqlCommandParam(args); //获取SQL参数
     if (method.hasRowBounds()) {
       RowBounds rowBounds = method.extractRowBounds(args);
       result = sqlSession.selectList(command.getName(), param, rowBounds);
