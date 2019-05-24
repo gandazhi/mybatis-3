@@ -25,7 +25,7 @@ public class Test {
     SqlSession sqlSession = sqlSessionFactory.openSession(); // 里面包含了Executor和configuration
 
     // 通过接口映射来实现
-    MsgTypeMapper mapper = sqlSession.getMapper(MsgTypeMapper.class);
+    MsgTypeMapper mapper = sqlSession.getMapper(MsgTypeMapper.class); //获取到接口的代理对象MapperProxy
     List<MsgType> selectAll = mapper.selectAll();
 
     // 通过mapper上的namespace来实现 需要依赖传递字符串，相比没通过接口包名相同的namespace映射安全

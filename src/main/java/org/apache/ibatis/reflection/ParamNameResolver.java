@@ -108,6 +108,7 @@ public class ParamNameResolver {
    * </p>
    */
   public Object getNamedParams(Object[] args) {
+    // 返回参数，如果参数是0个，返回null，如果参数是1个返回第一个，如果参数有多个，组装一个map，返回
     final int paramCount = names.size();
     if (args == null || paramCount == 0) {
       return null;

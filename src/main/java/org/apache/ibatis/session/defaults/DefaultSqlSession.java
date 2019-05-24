@@ -317,6 +317,7 @@ public class DefaultSqlSession implements SqlSession {
   }
 
   private Object wrapCollection(final Object object) {
+    // 包装参数 在写sql的时候用#{}取值的逻辑
     if (object instanceof Collection) {
       StrictMap<Object> map = new StrictMap<>();
       map.put("collection", object);
