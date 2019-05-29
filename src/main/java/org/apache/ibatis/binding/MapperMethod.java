@@ -218,8 +218,8 @@ public class MapperMethod {
 
   public static class SqlCommand {
 
-    private final String name;
-    private final SqlCommandType type;
+    private final String name; // 包全名+方法名
+    private final SqlCommandType type; // SQL语句的类型，增删改查类型
 
     public SqlCommand(Configuration configuration, Class<?> mapperInterface, Method method) {
       final String methodName = method.getName();
