@@ -26,7 +26,7 @@ public class Test {
 
     // 通过接口映射来实现
     MsgTypeMapper mapper = sqlSession.getMapper(MsgTypeMapper.class); //获取到接口的代理对象MapperProxy
-    List<MsgType> selectAll = mapper.selectAll();
+    List<MsgType> selectAll = mapper.selectAll(11);
 
     // 通过mapper上的namespace来实现 需要依赖传递字符串，相比没通过接口包名相同的namespace映射安全
 //    List<MsgType> selectAll = sqlSession.selectList("MsgTypeMapper.selectAll");

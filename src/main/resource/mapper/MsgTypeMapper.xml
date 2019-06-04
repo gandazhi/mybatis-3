@@ -17,8 +17,8 @@
     <result property="deleteFlag" column="delete_flag" jdbcType="VARCHAR"/>
   </resultMap>
 
-  <select id="selectAll" resultMap="sceneResultMap">
-    select * from msg_type
+  <select id="selectAll" resultMap="sceneResultMap" parameterType="integer">
+    select * from msg_type where id = #{id}
   </select>
 
 </mapper>

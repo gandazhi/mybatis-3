@@ -41,7 +41,7 @@ public class DefaultParameterHandler implements ParameterHandler {
   private final TypeHandlerRegistry typeHandlerRegistry;
 
   private final MappedStatement mappedStatement;
-  private final Object parameterObject;
+  private final Object parameterObject; //运行SQL时的参数
   private final BoundSql boundSql;
   private final Configuration configuration;
 

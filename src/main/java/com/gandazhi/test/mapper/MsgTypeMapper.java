@@ -9,5 +9,5 @@ import java.util.List;
  * @Date: 2019-05-16 15:45
  */
 public interface MsgTypeMapper {
-  List<MsgType> selectAll();
+  List<MsgType> selectAll(int id);
 }

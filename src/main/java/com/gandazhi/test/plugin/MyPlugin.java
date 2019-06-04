@@ -2,6 +2,8 @@ package com.gandazhi.test.plugin;
 
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.plugin.*;
+import org.apache.ibatis.reflection.MetaObject;
+import org.apache.ibatis.reflection.SystemMetaObject;
 
 import java.sql.Statement;
 import java.util.Properties;
@@ -22,8 +24,16 @@ public class MyPlugin implements Interceptor {
   @Override
   public Object intercept(Invocation invocation) throws Throwable {
     System.out.println("intercept:" + invocation.getMethod());
-    Object proceed = invocation.proceed(); //执行目标方法
+    Object target = invocation.getTarget();
+    System.out.println("拦截到的对象是:" + target);
 
+    MetaObject metaObject = SystemMetaObject.forObject(target);
+    Object value = metaObject.getValue("parameterHandler.parameterObject");
+    System.out.println("sql语句用的参数是" + value);
+    //更改SQL语句要用的参数
+    metaObject.setValue("parameterHandler.parameterObject", 1);
+
+    Object proceed = invocation.proceed(); //执行目标方法
     //返回执行后的返回值
     return proceed;
   }
